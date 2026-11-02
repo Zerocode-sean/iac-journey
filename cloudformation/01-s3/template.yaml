@@ -1,0 +1,8 @@
+AWSTemplateFormatVersion: "2010-09-09"
+ 
+ 
+Resources:
+  s3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: billnova-s3-assets-v1
