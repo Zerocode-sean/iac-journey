@@ -1,0 +1,32 @@
+Parameters:
+  InstanceTypeFromSSM:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /ec2/instance-type
+    Description: EC2 instance type stored in SSM Parameter Store
+
+##################
+# Resource Section 
+###################
+
+Resources:
+  WebServer:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: !Ref InstanceTypeFromSSM
+      ImageId: '{{resolve:ssm:/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64}}'
+      Tags:
+        - Key: keyname
+          Value: value
+          #Description: The name of the key
+        - Key: Project
+          Value: iac-Journey
+          #Description: The name of the project
+
+  MyS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: Billnova-assets-v1
+        Tags:
+          - Key: Project
+            Value: iac-Journey
+          #Description: The name of the project

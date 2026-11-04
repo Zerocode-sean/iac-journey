@@ -8,6 +8,7 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       KeyName: !Ref KeyName
+      # query if the latest Amazon Linux 2023 AMI is available in the region, if not, use the default Amazon Linux 2 AMI
       ImageId: '{{resolve:ssm:/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64}}'
       InstanceType: t2.micro
       Tags:
