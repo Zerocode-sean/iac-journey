@@ -99,12 +99,26 @@ Resources:
 ## Step 4: SSM-backed parameter for InstanceType
 
 ### Prerequisite: create the SSM parameter
+***On linux run this command***
 ```bash
 aws ssm put-parameter \
   --name "/ec2/instance-type" \
   --value "t3.micro" \
   --type "String" \
   --overwrite
+```
+***On windows using git  bash as your terminal  run this command***
+```bash
+MSYS_NO_PATHCONV=1 aws ssm put-parameter \
+    --name "/ec2/instance-type" \
+    --value "t3.micro" \
+    --type "String" \
+    --overwrite   
+```
+
+***If you are using windows powershell run this command***
+```bash
+aws ssm put-parameter --cli-input-json '{"Name": "/ec2/dev/instance-type", "Value": "t3.micro", "Type": "String", "Overwrite": true}'   
 ```
 
 ### Mini template

@@ -25,8 +25,5 @@ Resources:
   MyS3Bucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: Billnova-assets-v1
-        Tags:
-          - Key: Project
-            Value: iac-Journey
-          #Description: The name of the project
+      BucketName: bilnova-assets-v1
+        
