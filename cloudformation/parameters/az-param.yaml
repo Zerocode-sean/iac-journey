@@ -1,0 +1,22 @@
+Parameters:
+  AvailabilityZone:
+    Type: String 
+    Default: us-east-1a
+    AllowedValues: 
+      - us-east-1a
+      - us-east-1b
+      - us-east-1c
+    Description: Availability Zone to launch the instance in
+
+Resources:
+  Webserver:
+    Type: AWS::EC2::Instance
+    Properties:
+      AvailabilityZone: !Ref AvailabilityZone
+      ImageId: '{{resolve:ssm:/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64}}'
+      InstanceType: t2.micro
+      Tags:
+        - Key: Name
+          Value: iac-Journey-webserver
+        - Key: Project
+          Value: iac-Journey
