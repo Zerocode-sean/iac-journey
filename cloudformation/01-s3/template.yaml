@@ -1,19 +1,18 @@
-AWSTemplateFormatVersion: "2010-09-09"
-Parameters:
-  BucketName:
-    Type: String
-    Description: Globally unique , lowercase buckect name for S3 bucket
-    Default: billnova-assets-v1
-  
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Simple S3 bucket for learning CloudFormation basics
+
 Resources:
-  S3Bucket:
+  LearningBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Ref BucketName
-Outputs:
-  BucketArn:
-    Description: ARN of the S3 bucket
-    Value: !GetAtt S3Bucket.Arn
-  BucketRef:
-    Description: Reference to the S3 bucket
-    Value: !Ref S3Bucket 
+      BucketName: !Sub "iac-journey-${AWS::AccountId}-sample"
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      Tags:
+        - Key: Project
+          Value: iac-journey
+        - Key: Purpose
+          Value: learning
