@@ -19,7 +19,7 @@ We attempted to deploy Terraform resources that included an S3 bucket. The plan 
 The error showed that the active AWS identity in the terminal was not authorized to perform a required S3 API action.
 
 ### Error summary
-`User: arn:aws:sts::387769759230:assumed-role/voclabs/user5360541=John_Mutua_Ndinda_ is not authorized to perform: s3:GetBucketObjectLockConfiguration on resource: "arn:aws:s3:::iac-terraform-bucket-v1" with an explicit deny in an identity-based policy: arn:aws:iam::387769759230:policy/Pvoclabs2`
+`User: arn:aws:sts::387769759230:assumed-role/user5360541=John_Mutua_Ndinda_ is not authorized to perform: s3:GetBucketObjectLockConfiguration on resource: "arn:aws:s3:::iac-terraform-bucket-v1" with an explicit deny in an identity-based policy: arn:aws:iam::387769759230:policy/Pvoclabs2`
 
 ### Why this happened
 Terraform performs additional API calls while managing S3 resources beyond simply creating the bucket. In this case, it was checking the bucket object lock configuration, which was explicitly denied by the attached IAM policy.
