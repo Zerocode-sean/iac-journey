@@ -8,6 +8,14 @@ terraform {
   }
 }
 
+locals {
+  common_tags = {
+    Environment = var.environment
+    ManagedBy   = "Terraform"
+    Project     = "iac-journey"
+  }
+}
+
 provider "aws" {
   region = var.aws_region
 }
@@ -16,11 +24,9 @@ provider "aws" {
 resource "aws_s3_bucket" "my_bucket" {
   bucket = var.bucket_name
 
-  tags = {
-    Name        = var.bucket_name
-    Environment = var.environment
-    ManagedBy   = "Terraform"
-  }
+  tags = merge(local.common_tags, {
+    Name = var.bucket_name
+  })
 }
 
 # create S3 Bucket Policy
@@ -41,19 +47,35 @@ resource "aws_s3_bucket_policy" "my_bucket_policy" {
 }
 
 # create vpc 
-
 resource "aws_vpc" "lab_vpc" {
   cidr_block = var.cidr_block
-  region = var.aws_vpc_region[0]
 
-  tags = {
-    Name       = "lab-vpc"
-    Environment = var.environment
-    ManagedBy   = "Terraform"
-  }
+  tags = merge(local.common_tags, {
+    Name = "lab-vpc"
+  })
 }
 
+output "s3_bucket_id" {
+  description = "The ID of the created S3 bucket"
+  value       = aws_s3_bucket.my_bucket.id
+}
 
-output "name" {
-  value = aws_vpc.lab_vpc.name
+output "s3_bucket_arn" {
+  description = "The ARN of the created S3 bucket"
+  value       = aws_s3_bucket.my_bucket.arn
+}
+
+output "vpc_id" {
+  description = "The ID of the created VPC"
+  value       = aws_vpc.lab_vpc.id
+}
+
+output "vpc_cidr_block" {
+  description = "The CIDR block of the created VPC"
+  value       = aws_vpc.lab_vpc.cidr_block
+}
+
+output "vpc_name_tag" {
+  description = "The Name tag value applied to the VPC"
+  value       = aws_vpc.lab_vpc.tags["Name"]
 }

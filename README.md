@@ -98,6 +98,30 @@ Each exercise follows the same pattern:
 6. Remove the stack or resource cleanly
 7. Write down the lesson, surprise, or mistake
 
+## Day-to-day Terraform workflow
+
+For most Terraform exercises in this repo, the standard flow is:
+
+```bash
+cd terraform
+terraform init
+terraform plan
+terraform apply
+terraform output
+terraform destroy
+```
+
+What each step means:
+- `terraform init` initializes the working directory and downloads the required providers
+- `terraform plan` shows the exact changes Terraform will make
+- `terraform apply` creates or updates the AWS resources
+- `terraform output` shows the values exposed by outputs such as VPC IDs or bucket identifiers
+- `terraform destroy` removes the infrastructure cleanly when the exercise is finished
+
+This workflow keeps the process repeatable, easy to validate, and safe for learning labs.
+
+---
+
 ## Notes
 
 This repo is intentionally practical and incremental. It is not meant to be a production-grade architecture, but rather a visible proof of learning over time.
