@@ -120,6 +120,45 @@ What each step means:
 
 This workflow keeps the process repeatable, easy to validate, and safe for learning labs.
 
+## Terraform state and remote backends
+
+Terraform state is the record of what Terraform manages. It tells Terraform what resources exist and what values they currently have, so it can plan future changes.
+
+For learning exercises, local state is fine. For real teams, most organizations use a remote backend such as:
+
+- S3 for storing the state file
+- DynamoDB for state locking
+
+This matters because it helps avoid overlapping apply operations and protects the team from writing conflicting changes at the same time.
+
+A classic pattern is:
+
+```hcl
+terraform {
+  backend "s3" {
+    bucket         = "my-terraform-state-bucket"
+    key            = "dev/network/terraform.tfstate"
+    region         = "us-west-2"
+    dynamodb_table = "terraform-locks"
+    encrypt        = true
+  }
+}
+```
+
+This is especially important when multiple engineers are working on the same environment.
+
+### State locking and drift
+
+State locking prevents two engineers from applying changes at the same time. The lock owner is the active Terraform process holding the lock, and other runs must wait until it is released.
+
+Drift happens when a resource is changed outside Terraform, such as in the AWS console. Terraform will compare the live infrastructure against the state file and configuration and show those differences during the next plan.
+
+This is why GitOps is valuable: code in Git becomes the desired state, while Terraform state and live infrastructure are reconciled against that intent.
+
+The repo now includes a dedicated notes folder for this topic:
+
+- `terraform/state-backend/`
+
 ---
 
 ## Notes
