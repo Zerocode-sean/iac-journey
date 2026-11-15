@@ -159,6 +159,20 @@ The repo now includes a dedicated notes folder for this topic:
 
 - `terraform/state-backend/`
 
+### Backend config note
+
+A file like `terraform/state-backend/backend.tfvars.example` is not the same as a normal Terraform variable file used for resources.
+
+It is typically used as a backend configuration file for `terraform init`, for example:
+
+```bash
+terraform init -backend-config=backend.tfvars
+```
+
+This is different from `terraform.tfvars`, which is used to populate normal input variables such as region, environment, or bucket names.
+
+This distinction matters when working with remote state: the backend settings tell Terraform where the remote state lives and how to lock it, while regular variable files provide values for the infrastructure itself.
+
 ---
 
 ## Notes
