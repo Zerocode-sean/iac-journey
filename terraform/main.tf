@@ -1,4 +1,13 @@
 # configure provider 
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 6.0"
+    }
+  }
+}
+
 provider "aws" {
   region = var.aws_region
 }
@@ -31,4 +40,20 @@ resource "aws_s3_bucket_policy" "my_bucket_policy" {
   })
 }
 
-# create EC2 instance
+# create vpc 
+
+resource "aws_vpc" "lab_vpc" {
+  cidr_block = var.cidr_block
+  region = var.aws_vpc_region[0]
+
+  tags = {
+    Name       = "lab-vpc"
+    Environment = var.environment
+    ManagedBy   = "Terraform"
+  }
+}
+
+
+output "name" {
+  value = aws_vpc.lab_vpc.name
+}
