@@ -1,0 +1,6 @@
+# Example variable values for the AWS provider configuration
+# Copy this file to terraform.tfvars and update the values for your environment.
+
+aws_region = "us-west-2"
+environment = "dev"
+project_name = "iac-journey"
