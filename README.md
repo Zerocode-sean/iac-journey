@@ -51,6 +51,15 @@ The goal is to learn by doing and build real confidence in infrastructure automa
 - storage and compute combinations
 - environment separation and cleanup discipline
 
+### 5. AWS networking mini project
+- small VPC with multiple subnets
+- internet gateway and route table basics
+- security group fundamentals
+- a beginner-friendly introduction to AWS networking in Terraform
+
+This project lives in:
+- `terraform/networking-mini-project/`
+
 ## Project structure
 
 - `cloudformation/` — CloudFormation templates and exercises
@@ -172,6 +181,21 @@ terraform init -backend-config=backend.tfvars
 This is different from `terraform.tfvars`, which is used to populate normal input variables such as region, environment, or bucket names.
 
 This distinction matters when working with remote state: the backend settings tell Terraform where the remote state lives and how to lock it, while regular variable files provide values for the infrastructure itself.
+
+## Terraform beginner notes
+
+A few concepts are worth remembering as you read the Terraform examples in this repo:
+
+- `provider "aws"` tells Terraform how to connect to AWS
+- `resource "aws_s3_bucket"` creates an AWS object
+- `data "aws_ami"` asks AWS for information without creating anything
+- resource references like `aws_vpc.main.id` are automatically resolved by Terraform after the dependency is created
+- AWS-generated IDs such as VPC IDs, subnet IDs, and security group IDs are not hand-written by the user; Terraform receives them from AWS
+- `terraform plan` shows the dependency order and the changes Terraform will make
+- `terraform apply` creates the infrastructure
+- `terraform output` exposes the important values after deployment
+
+This is especially helpful when reading the networking mini project, where Terraform creates a VPC, subnet, security group, and EC2 instance in a dependency-aware order.
 
 ---
 
