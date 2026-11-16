@@ -1,0 +1,15 @@
+aws_region = "us-east-1"
+project_name = "iac-demo"
+vpc_cidr = "10.0.0.0/16"
+allowed_ports = [22, 80, 443]
+
+database_config = {
+  engine            = "mysql"
+  instance_class    = "db.t3.micro"
+  allocated_storage = 20
+  backup_retention  = 7
+  multi_az          = false
+}
+
+# Do not commit real secrets. Use environment variables or AWS Secrets Manager.
+db_password = "example-secret-password"
