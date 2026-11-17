@@ -147,4 +147,6 @@ See:
 - `advanced.md` for nested objects and `for_each`
 - `meta-arguments/README.md` for Terraform resource meta-arguments like `count`, `for_each`, `depends_on`, `provider`, and `lifecycle`
 - `lifecycle/README.md` for lifecycle safety rules such as `create_before_destroy`, `prevent_destroy`, and `ignore_changes`
+- `expressions/README.md` for Terraform expressions, conditionals, loops, and built-in functions
+- `dynamic-blocks/README.md` for generating repeated nested blocks with `dynamic` and `for_each`
 - `examples/` for sample Terraform files
