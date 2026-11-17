@@ -145,4 +145,5 @@ Terraform constraints help you define valid input, protect secrets, and standard
 
 See:
 - `advanced.md` for nested objects and `for_each`
+- `meta-arguments/README.md` for Terraform resource meta-arguments like `count`, `for_each`, `depends_on`, `provider`, and `lifecycle`
 - `examples/` for sample Terraform files
